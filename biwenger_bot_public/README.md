@@ -15,13 +15,13 @@ El siguiente diagrama ilustra el flujo de datos entre las APIs externas, la pers
 
 ```mermaid
 graph TD
-    subgraph APIs Externas
+    subgraph APIs_Externas ["APIs Externas"]
         B_API["Biwenger API"]
         G_API["Gemini API (Google AI)"]
         W_API["Wikipedia & Tavily APIs"]
     end
 
-    subgraph Backend Core (Python/FastAPI)
+    subgraph Backend_Core ["Backend Core (Python/FastAPI)"]
         EXT["Extractor (extractor.py)"]
         PRED["Predictor (predictor.py - PyTorch Transformer)"]
         GEM["Gemini Client (gemini_client.py)"]
@@ -29,11 +29,11 @@ graph TD
         WORK["Background Sync Worker"]
     end
 
-    subgraph Base de Datos
+    subgraph Base_Datos ["Base de Datos"]
         DB[("Base de Datos (SQLite / PostgreSQL)")]
     end
 
-    subgraph Frontend (Glassmorphic Web App)
+    subgraph Frontend ["Frontend (Glassmorphic Web App)"]
         UI["UI (HTML5 / CSS3 / App.js)"]
     end
 
