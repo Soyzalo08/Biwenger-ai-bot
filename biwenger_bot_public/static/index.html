@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biwenger AI - Consultor Mundial 2026</title>
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="glass-container">
+        <!-- Sidebar: Real-time Stats & Saved Chats -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo">
+                    <i class="fa-solid fa-brain-circuit brain-icon"></i>
+                    <span>Biwenger <span class="accent-text">AI</span></span>
+                </div>
+                <div class="status-row">
+                    <div class="status-indicator" id="sync-status">
+                        <span class="status-dot pulsating"></span>
+                        <span class="status-text">Iniciando...</span>
+                    </div>
+                    <button id="btn-sync" class="icon-btn" title="Sincronizar ahora con Biwenger">
+                        <i class="fa-solid fa-rotate"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mi Club Box -->
+            <div class="sidebar-box card-blur">
+                <h3 class="box-title"><i class="fa-solid fa-shield-halved"></i> Mi Club</h3>
+                <div class="club-info">
+                    <div class="stat-row">
+                        <span class="stat-label">Nombre:</span>
+                        <span class="stat-value" id="my-name">-</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Saldo:</span>
+                        <span class="stat-value highlight-cash" id="my-balance">- €</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Valor Plantilla:</span>
+                        <span class="stat-value" id="my-value">- €</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Jugadores:</span>
+                        <span class="stat-value" id="my-players">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rival Ledger Box -->
+            <div class="sidebar-box card-blur scrollable-box" style="height: 180px;">
+                <h3 class="box-title"><i class="fa-solid fa-coins"></i> Saldos de Rivales</h3>
+                <div class="rivals-list" id="rivals-container">
+                    <div class="loading-placeholder">
+                        <i class="fa-solid fa-spinner fa-spin"></i> Cargando rivales...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saved Chats Box -->
+            <div class="sidebar-box card-blur flex-grow">
+                <div class="box-title-container">
+                    <h3 class="box-title"><i class="fa-solid fa-comments"></i> Conversaciones</h3>
+                    <button id="new-chat-btn" class="icon-btn" title="Nueva conversación">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+                <div class="chats-list" id="chats-container">
+                    <div class="loading-placeholder">
+                        Cargando conversaciones...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sync Info Footer -->
+            <div class="sidebar-footer">
+                <div class="stat-row font-xs">
+                    <span>Transacciones (IA):</span>
+                    <span id="trained-txs">-</span>
+                </div>
+                <div class="stat-row font-xs">
+                    <span>Última Sincro:</span>
+                    <span id="last-update">-</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat & Log Area -->
+        <main class="chat-area">
+            <header class="chat-header">
+                <div class="chat-header-info">
+                    <h2>Consultor Estratégico Interactivo</h2>
+                    <p>Pregúntame sobre tus rivales, alineaciones o pujas de mercado.</p>
+                </div>
+                
+                <!-- Tab Switching Navigation -->
+                <div class="tab-container">
+                    <button class="tab-btn active" id="tab-chat" onclick="switchTab('chat')">
+                        <i class="fa-solid fa-comment-dots"></i> Chatbot
+                    </button>
+                    <button class="tab-btn" id="tab-operations" onclick="switchTab('operations')">
+                        <i class="fa-solid fa-receipt"></i> Operaciones
+                    </button>
+                </div>
+
+                <div class="header-actions">
+                    <button id="clear-chat" title="Limpiar conversación">
+                        <i class="fa-solid fa-broom"></i> Limpiar
+                    </button>
+                </div>
+            </header>
+
+            <!-- Chat Tab Content -->
+            <div id="chat-tab-content" class="tab-content active-content">
+                <!-- Chat Message Log -->
+                <div class="chat-log" id="chat-log">
+                    <!-- Message structures are generated dynamically via JS -->
+                </div>
+
+                <!-- Input area -->
+                <div class="chat-input-container">
+                    <div class="chat-input-wrapper card-blur">
+                        <textarea id="chat-input" placeholder="Pregunta sobre la liga... ej: ¿quién tiene más saldo? o ¿debo fichar a Courtois?" rows="1"></textarea>
+                        <button id="send-btn" class="send-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="suggestions">
+                        <span class="suggestion-tag" onclick="sendQuickQuery('¿Cuáles son los mejores chollos del mercado actual?')">Mejores chollos</span>
+                        <span class="suggestion-tag" onclick="sendQuickQuery('Analiza el saldo y debilidades de mis rivales')">Estrategia de rivales</span>
+                        <span class="suggestion-tag" onclick="sendQuickQuery('Recomiéndame una alineación óptima con mi plantilla')">Optimizar mi once</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operations Tab Content -->
+            <div id="operations-tab-content" class="tab-content" style="display: none;">
+                <div class="operations-container">
+                    <div class="operations-header">
+                        <h3>Historial de Operaciones de la Liga</h3>
+                        <p>Registro de todas las transacciones históricas del tablón sincronizadas en SQLite.</p>
+                    </div>
+                    <div class="operations-list" id="operations-log-list">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/static/app.js"></script>
+</body>
+</html>

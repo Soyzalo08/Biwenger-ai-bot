@@ -1,0 +1,9 @@
+requests
+google-generativeai
+scikit-learn
+numpy
+torch
+fastapi
+uvicorn
+pydantic
+psycopg2-binary
