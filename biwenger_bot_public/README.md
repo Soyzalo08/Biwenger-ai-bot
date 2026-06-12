@@ -81,9 +81,9 @@ Un daemon que despierta cada 10 minutos para sincronizar los datos de Biwenger d
 ## 🚀 Instalación y Configuración
 
 ### 1. Clonar el repositorio
-```bash
-git clone https://github.com/tu-usuario/biwenger-bot-v3.git
-cd biwenger-bot-v3
+```bash[
+git clone https://github.com/Soyzalo08/Biwenger-ai-bot.git
+cd Biwenger-ai-bot
 ```
 
 ### 2. Instalar dependencias
