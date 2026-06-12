@@ -51,10 +51,10 @@ graph TD
     UI -->|Pregunta del usuario| SERV
     SERV -->|Genera contexto y chat| GEM
     GEM -->|Rotador de Keys y reintentos| G_API
-    GEM -->|Búsqueda (search_knowledge)| W_API
-    G_API -->|Genera respuesta táctica| GEM
+    GEM -->|Busqueda web y conocimiento| W_API
+    G_API -->|Genera respuesta tactica| GEM
     GEM -->|Persiste historial| DB
-    UI -->|Renderiza Markdown / Status| UI
+    UI -->|Renderiza Markdown o Status| UI
 ```
 
 ---
